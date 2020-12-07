@@ -36,8 +36,8 @@ function Form({ handleChange, inputList, setInputList}) {
         <label>Theme</label>
 
         <select name="theme" onChange={handleChange}>
-          <option value="light">Light</option>
-          <option value="dark">Dark</option>
+          <option value="black">Dark</option>
+          <option value="white">Light</option>
         </select>
       </div>
 
@@ -54,14 +54,14 @@ function Form({ handleChange, inputList, setInputList}) {
         <label>Font Size</label>
 
         <select name="fontSize" onChange={handleChange}>
-          <option value="25px">25px</option>
-          <option value="50px">50px</option>
-          <option value="75px">75px</option>
-          <option value="100px">100px</option>
-          <option value="125px">125px</option>
-          <option value="150px">150xp</option>
-          <option value="175px">175px</option>
-          <option value="200px">200px</option>
+          <option value="25">25px</option>
+          <option value="50">50px</option>
+          <option value="75">75px</option>
+          <option value="100">100px</option>
+          <option value="125">125px</option>
+          <option value="150">150xp</option>
+          <option value="175">175px</option>
+          <option value="200">200px</option>
         </select>
       </div>
 

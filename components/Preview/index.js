@@ -1,6 +1,9 @@
 import { Container } from './styles';
 import Loading from '../Loading';
 
+
+//TODO COPY TO DASHBOARD
+
 function Preview({url, loading}) {
     return (
         <Container>

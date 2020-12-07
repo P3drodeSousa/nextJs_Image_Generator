@@ -6,9 +6,9 @@ import { useState, useEffect } from 'react';
 
 export default function Home() {
   const [values, setValues] = useState({
-    theme: "light",
+    theme: "black",
     fileType: "png",
-    fontSize: "100px",
+    fontSize: "100",
     textType: "plain",
     textInput: "Hello World !",
   });
