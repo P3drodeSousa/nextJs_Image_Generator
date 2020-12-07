@@ -1,15 +1,14 @@
-// Next.js API route support: https://nextjs.org/docs/api-routes/introduction
-
 import { getScreeShoot } from "./_lib/getHtml"
 import {  getHtml } from "./_lib/template";
 
 export default  async  (req, res) => {
   const {textInput, theme} = JSON.parse(req.body);
-  // console.log(textInput)
+  console.log(req.body);
 
-  const html = await getHtml(textInput);
-  await getScreeShoot(html); 
+
+  // const html = await getHtml(textInput);
+  // const imgUrl = await getScreeShoot(html); 
   
-  res.statusCode = 200
-  res.end('oui')
+  res.statusCode = 200;
+  res.send({ url: "0b75bf34-7c1e-4610-b941-11f9b1647626.png" });
 }
