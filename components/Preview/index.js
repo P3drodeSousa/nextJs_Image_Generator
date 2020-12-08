@@ -1,28 +1,43 @@
-import { Container } from './styles';
-import Loading from '../Loading';
+import { useState } from "react";
+import Notification from './Notification'
+import { Container } from "./styles";
+
+function Preview({ url, loading }) {
+  const [show, setShow] = useState(false);
+
+  const imagePath = !url ? `http://localhost:3000/base.png` : `http://localhost:3000/${url}`
 
 
-//TODO COPY TO DASHBOARD
 
-function Preview({url, loading}) {
-    return (
-        <Container>
-            {!url ? (  <Loading /> ) : ( 
-            <img  
-                key={Date.now()} 
-                src={url}  
-                style={{
-                    width:700,
-                    height:500,
-                    filter: loading
-                        ? "blur(10px)"
-                        : "none",
-                    transition: loading
-                        ? "none"
-                        : "filter 0.4s ease-out"
-        }} />) }
-           
-        </Container>);
-    }
+  const copy2CLipBoard = async () => {
+    setShow(true)
+    await navigator.clipboard.writeText(imagePath);
+    setTimeout(() => {
+      setShow(false)
+    }, 4000)
+  }
+
+
+
+  return (
+    <Container>
+      <div className="image-wrapper">
+        <img
+          key={Date.now()}
+          src={imagePath}
+          onClick={copy2CLipBoard}
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+            filter: loading ? "blur(10px)" : "none",
+            transition: loading ? "none" : "filter 0.2s ease-out",
+          }}
+        />
+      </div>
+      <Notification show={show} />
+    </Container>
+  );
+}
 
 export default Preview;

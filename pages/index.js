@@ -1,8 +1,10 @@
-import Head from 'next/head'
-import Form from '../components/Form'
-import Preview from '../components/Preview'
-import { Container, Wrapper } from './_styles';
-import { useState, useEffect } from 'react';
+import Head from "next/head";
+import Form from "../components/Form";
+import Preview from "../components/Preview";
+import { Container, Wrapper } from "./_styles";
+import { useState, useEffect } from "react";
+
+// TODO MERGE STATES  OF INPUTLINKS WITH DATA
 
 export default function Home() {
   const [values, setValues] = useState({
@@ -10,42 +12,49 @@ export default function Home() {
     fileType: "png",
     fontSize: "100",
     textType: "plain",
-    textInput: "Hello World !",
+    textInput: "Hello World !"
   });
-
+  const [noOfRender, setNoOfRender] = useState(0);
   const [inputList, setInputList] = useState([
-    { url: "", width: "", heigth: "" },
+    { url: "", width: "", heigth: "" }
   ]);
+  const [image, setImage] = useState("");
+  const [loading, setLoading] = useState(false);
 
-  const [image, setImage] = useState('')
-  const [loading, setLoading] = useState(false)
-
-  useEffect(() => {
-    const postData = async (info) => {
-     setLoading(true)
-
-    let newData = {infos: info, images: inputList}
-
-      const data = JSON.stringify(newData)
-      const res = await fetch("/api/hello",
-          {
-            method: "POST", 
-            body: data
-          });
-
-
-      const url = await res.json();
-      setImage(url)
-      setLoading(false)
+  // TODO IMPROVE PERFORMANCE
+  useEffect(
+    () => {
+      if (noOfRender < 1) {
+        //for some cases that I need to skip it twice
+        setNoOfRender(noOfRender + 1);
+        return;
       }
-      postData(values);
-  }, [values, inputList])
 
+      const postData = async info => {
+        setLoading(true);
+        let newData = { infos: info, images: inputList };
+        const data = JSON.stringify(newData);
+        const res = await fetch("/api/hello", {
+          method: "POST",
+          body: data
+        });
+        const url = await res.json();
+        setImage(url);
+        setLoading(false);
+      };
 
-  const handleChange = (e) => {
-    const {name, value} = e.target;
-      setValues({...values, [name]: value});
-  }
+      const timer = setTimeout(() => {
+        postData(values);
+      }, 1000);
+      return () => clearTimeout(timer);
+    },
+    [values, inputList]
+  );
+
+  const handleChange = e => {
+    const { name, value } = e.target;
+    setValues({ ...values, [name]: value });
+  };
 
   return (
     <Container>
@@ -56,7 +65,7 @@ export default function Home() {
         <link
           href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@400;600&display=swap"
           rel="stylesheet"
-        ></link>
+        />
       </Head>
       <h1>Open Graph Image as a Service</h1>
       <Wrapper>
@@ -64,6 +73,7 @@ export default function Home() {
           handleChange={handleChange}
           inputList={inputList}
           setInputList={setInputList}
+          values={values}
         />
         <Preview url={image.url} loading={loading} />
       </Wrapper>
