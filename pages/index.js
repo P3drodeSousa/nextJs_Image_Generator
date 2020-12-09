@@ -10,30 +10,28 @@ export default function Home() {
   const [values, setValues] = useState({
     theme: "black",
     fileType: "png",
-    fontSize: "100",
+    fontSize: "150",
     textType: "plain",
-    textInput: "Hello World !"
+    textInput: "Hello World !",
+    images: []
   });
+
   const [noOfRender, setNoOfRender] = useState(0);
-  const [inputList, setInputList] = useState([
-    { url: "", width: "", heigth: "" }
-  ]);
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
 
-  // TODO IMPROVE PERFORMANCE
+  //TODO IMPROVE PERFORMANCE
+
   useEffect(
     () => {
       if (noOfRender < 1) {
-        //for some cases that I need to skip it twice
         setNoOfRender(noOfRender + 1);
         return;
       }
 
       const postData = async info => {
         setLoading(true);
-        let newData = { infos: info, images: inputList };
-        const data = JSON.stringify(newData);
+        const data = JSON.stringify(info);
         const res = await fetch("/api/hello", {
           method: "POST",
           body: data
@@ -48,7 +46,7 @@ export default function Home() {
       }, 1000);
       return () => clearTimeout(timer);
     },
-    [values, inputList]
+    [values]
   );
 
   const handleChange = e => {
@@ -71,9 +69,8 @@ export default function Home() {
       <Wrapper>
         <Form
           handleChange={handleChange}
-          inputList={inputList}
-          setInputList={setInputList}
           values={values}
+          setValues={setValues}
         />
         <Preview url={image.url} loading={loading} />
       </Wrapper>

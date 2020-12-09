@@ -8,7 +8,7 @@ export default async (req, res) => {
   const infos = JSON.parse(req.body);
 
   const html = await getHtml(infos);
-  const imgUrl = await getScreenShoot(html, infos.infos.fileType);
+  const imgUrl = await getScreenShoot(html, infos.fileType);
 
   res.statusCode = 200;
   res.send({ url: imgUrl });

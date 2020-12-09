@@ -1,29 +1,28 @@
 import { Container } from "./styles";
 
-function Form({ handleChange, inputList, setInputList, values }) {
+function Form({ handleChange, inputList, setInputList, values, setValues }) {
   const handleAddFields = () => {
-    setInputList(prevValues => [
-      ...prevValues,
-      { url: "", width: "", heigth: "" }
-    ]);
+    const images = [...values.images];
+    images.push({ url: "", width: "150", heigth: "150" });
+    setValues({ ...values, images });
   };
 
   const handleRemoveFields = i => {
-    if (inputList.length === 1) return;
-    const values = [...inputList];
-    values.splice(i, 1);
-    setInputList(values);
+    const images = [...values.images];
+    images.splice(i, 1);
+    setValues({ ...values, images });
   };
 
   const handleImageChange = (e, index, name) => {
-    let newArr = inputList.map((item, i) => {
+    const images = values.images.map((item, i) => {
       if (index == i) {
         return { ...item, [name]: e.target.value };
       } else {
         return item;
       }
     });
-    setInputList(newArr);
+
+    setValues({ ...values, images });
   };
 
   return (
@@ -56,13 +55,13 @@ function Form({ handleChange, inputList, setInputList, values }) {
         <label>
           <div className="fieldName">Font Size</div>
           <div className="fieldValue">
-            <select name="fontSize" defaultValue="100" onChange={handleChange}>
+            <select name="fontSize" defaultValue="150" onChange={handleChange}>
               <option value="25">25 px</option>
               <option value="50">50 px</option>
               <option value="75">75 px</option>
               <option value="100">100 px</option>
               <option value="125">125 px</option>
-              <option value="150">150 xp</option>
+              <option value="150">150 px</option>
               <option value="175">175 px</option>
               <option value="200">200 px</option>
               <option value="225">225 px</option>
@@ -98,7 +97,7 @@ function Form({ handleChange, inputList, setInputList, values }) {
         </label>
       </div>
 
-      {inputList.map((input, i) =>
+      {values.images.map((input, i) =>
         <div key={i}>
           <label>
             <div className="fieldName">
@@ -115,8 +114,8 @@ function Form({ handleChange, inputList, setInputList, values }) {
                   <select onChange={e => handleImageChange(e, i, "width")}>
                     <option value="auto">width</option>
                     <option value="50">50 px</option>
-                    <option value="150">150 px</option>
                     <option value="100">100 px</option>
+                    <option value="150">150 px</option>
                     <option value="200">200 px</option>
                     <option value="250">250 px</option>
                     <option value="300">300 px</option>
@@ -138,27 +137,28 @@ function Form({ handleChange, inputList, setInputList, values }) {
                 </div>
               </div>
 
-              {i > 0 &&
-                <button onClick={() => handleRemoveFields(i)}>
-                  Remove image {i + 1}
-                </button>}
-            </div>
-          </label>
-
-          <label>
-            <div className="fieldName">
-              Image {i + 2}
-            </div>
-            <div className="fieldValue">
-              <div key={i}>
-                <div>
-                  {" "}<button onClick={handleAddFields}>Add</button>
-                </div>
-              </div>
+              <button onClick={() => handleRemoveFields(i)}>
+                Remove image {i + 1}
+              </button>
             </div>
           </label>
         </div>
       )}
+
+      <div>
+        <label>
+          <div className="fieldName">
+            Image {values.images.length + 1}
+          </div>
+          <div className="fieldValue">
+            <div>
+              <div>
+                <button onClick={handleAddFields}>Add</button>
+              </div>
+            </div>
+          </div>
+        </label>
+      </div>
     </Container>
   );
 }

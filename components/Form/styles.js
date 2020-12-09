@@ -41,6 +41,8 @@ export const Container = styled.div`
       width: 100px;
       margin-right: 20px;
       text-align: right;
+      font-size: 18px;
+      font-weight: 500;
     }
 
     .fieldValue {
