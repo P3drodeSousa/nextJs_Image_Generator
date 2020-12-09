@@ -3,6 +3,7 @@ import Form from "../components/Form";
 import Preview from "../components/Preview";
 import { Container, Wrapper } from "./_styles";
 import useGenerateImage from "../utils/useGenerateImage";
+import Search from "../components/Search";
 
 export default function Home() {
   const { values, setValues, image, loading } = useGenerateImage();
@@ -23,6 +24,7 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
+      <Search />
       <h1>Open Graph Image as a Service</h1>
       <Wrapper>
         <Form

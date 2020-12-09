@@ -15,7 +15,7 @@ export const Container = styled.div`
 `;
 
 export const Wrapper = styled.div`
-  width: 98%;
+  width: 85%;
   margin: 0 auto;
   display: flex;
   justify-content: center;

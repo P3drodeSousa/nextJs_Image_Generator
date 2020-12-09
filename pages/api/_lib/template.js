@@ -86,6 +86,7 @@ export function getHtml(data) {
               justify-content: space-between;
               align-items: center;
               justify-content: center;
+              flex-wrap: wrap;
           }
 
           span {

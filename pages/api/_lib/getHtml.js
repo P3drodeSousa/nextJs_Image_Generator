@@ -29,3 +29,28 @@ export async function getScreenShoot(html, type) {
 
   return path;
 }
+
+export async function getImages(query) {
+  const page = await getPage();
+
+  console.log(query);
+  await page.goto("https://worldvectorlogo.com/fr/", {
+    waitUntil: "networkidle2"
+  });
+
+  await page.waitForSelector("#search_field");
+  await page.type("#search_field", query.img, { delay: 30 });
+  await page.keyboard.press(String.fromCharCode(13));
+  await page.waitForNavigation();
+
+  const images = await page.evaluate(() => {
+    const img = document.querySelectorAll(".logos img");
+    const src = [];
+    img.forEach(el => {
+      src.push(el.src);
+    });
+    return src;
+  });
+
+  return images;
+}

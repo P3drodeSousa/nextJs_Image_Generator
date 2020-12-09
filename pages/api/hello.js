@@ -11,5 +11,5 @@ export default async (req, res) => {
   const imgUrl = await getScreenShoot(html, values.fileType);
 
   res.statusCode = 200;
-  res.send({ url: imgUrl });
+  return res.send({ url: imgUrl });
 };
