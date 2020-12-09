@@ -8,6 +8,7 @@
     "start": "next start"
   },
   "dependencies": {
+    "axios": "^0.21.0",
     "chrome-aws-lambda": "^5.5.0",
     "marked": "^1.2.5",
     "next": "10.0.3",

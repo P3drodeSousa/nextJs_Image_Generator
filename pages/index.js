@@ -2,52 +2,10 @@ import Head from "next/head";
 import Form from "../components/Form";
 import Preview from "../components/Preview";
 import { Container, Wrapper } from "./_styles";
-import { useState, useEffect } from "react";
-
-// TODO MERGE STATES  OF INPUTLINKS WITH DATA
+import useGenerateImage from "../utils/useGenerateImage";
 
 export default function Home() {
-  const [values, setValues] = useState({
-    theme: "black",
-    fileType: "png",
-    fontSize: "150",
-    textType: "plain",
-    textInput: "Hello World !",
-    images: []
-  });
-
-  const [noOfRender, setNoOfRender] = useState(0);
-  const [image, setImage] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  //TODO IMPROVE PERFORMANCE
-
-  useEffect(
-    () => {
-      if (noOfRender < 1) {
-        setNoOfRender(noOfRender + 1);
-        return;
-      }
-
-      const postData = async info => {
-        setLoading(true);
-        const data = JSON.stringify(info);
-        const res = await fetch("/api/hello", {
-          method: "POST",
-          body: data
-        });
-        const url = await res.json();
-        setImage(url);
-        setLoading(false);
-      };
-
-      const timer = setTimeout(() => {
-        postData(values);
-      }, 1000);
-      return () => clearTimeout(timer);
-    },
-    [values]
-  );
+  const { values, setValues, image, loading } = useGenerateImage();
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -72,7 +30,7 @@ export default function Home() {
           values={values}
           setValues={setValues}
         />
-        <Preview url={image.url} loading={loading} />
+        <Preview url={image} loading={loading} />
       </Wrapper>
     </Container>
   );

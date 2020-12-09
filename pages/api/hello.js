@@ -5,10 +5,10 @@ import { getHtml } from "./_lib/template";
 // marked
 
 export default async (req, res) => {
-  const infos = JSON.parse(req.body);
+  const { values } = req.body;
 
-  const html = await getHtml(infos);
-  const imgUrl = await getScreenShoot(html, infos.fileType);
+  const html = await getHtml(values);
+  const imgUrl = await getScreenShoot(html, values.fileType);
 
   res.statusCode = 200;
   res.send({ url: imgUrl });
