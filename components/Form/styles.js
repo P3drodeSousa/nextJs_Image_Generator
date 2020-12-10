@@ -3,8 +3,15 @@ import styled from "styled-components";
 export const Container = styled.div`
   min-width: 50%;
   display: flex;
-  flex-direction: column;
-  align-items: flex-end;
+  justify-content: flex-end;
+
+  div {
+    :nth-of-type(2) {
+      display: flex;
+      flex-direction: column;
+      justify-self: flex-start;
+    }
+  }
 
   .dimensions {
     display: flex;

@@ -24,8 +24,8 @@ export default function Home() {
           rel="stylesheet"
         />
       </Head>
-      <Search />
       <h1>Open Graph Image as a Service</h1>
+
       <Wrapper>
         <Form
           handleChange={handleChange}
