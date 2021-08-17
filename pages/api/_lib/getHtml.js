@@ -19,7 +19,7 @@ async function getPage() {
 
 export async function getScreenShoot(html, type) {
 
-  const baseUrl =
+  let baseURL =
   process.env.NODE_ENV === "development"
     ? "http://localhost:3000"
     : "https://next-js-image-generator.vercel.app/";
