@@ -11,14 +11,6 @@ const exePath = chromeExecPaths[process.platform];
 export async function getOptions(isDev) {
   let options;
 
-  // let options = {
-  //     args: chrome.args,
-  //     executablePath: await chrome.executablePath,
-  //     headless: chrome.headless
-  // };
-
-  // return options;
-
   if (isDev) {
     options = {
       args: [],

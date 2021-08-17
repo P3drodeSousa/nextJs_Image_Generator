@@ -1,9 +1,6 @@
 import { getScreenShoot } from "./_lib/getHtml";
 import { getHtml } from "./_lib/template";
 
-//Gray-matter
-// marked
-
 export default async (req, res) => {
   const { values } = req.body;
 

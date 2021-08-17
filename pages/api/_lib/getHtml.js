@@ -18,8 +18,15 @@ async function getPage() {
 }
 
 export async function getScreenShoot(html, type) {
+
+  const baseUrl =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3000"
+    : "https://next-js-image-generator.vercel.app/";
+
+
   const image = imageId();
-  const path = `${image}.${type}`;
+  const path = `${baseURL}${image}.${type}`;
   const page = await getPage();
 
   await page.setViewport({ width: 1680, height: 1050 });
@@ -33,7 +40,6 @@ export async function getScreenShoot(html, type) {
 export async function getImages(query) {
   const page = await getPage();
 
-  console.log(query);
   await page.goto("https://worldvectorlogo.com/fr/", {
     waitUntil: "networkidle2"
   });

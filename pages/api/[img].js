@@ -7,5 +7,4 @@ export default async (req, res) => {
 
   res.statusCode = 200;
   return res.send({ imgs });
-  // return res.send({ Pedro: "Pedro" });
 };
