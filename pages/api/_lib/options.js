@@ -1,4 +1,4 @@
-import chrome from "chrome-aws-lambda";
+import  chromium from "chrome-aws-lambda";
 
 const chromeExecPaths = {
   win32: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
