@@ -18,7 +18,7 @@ process.env.NODE_ENV === "development"
 
 async function getPage() {
   if (_page) return _page;
-  const options = await getOptions(isDev);
+  const options = await getOptions();
   const browser = await puppeteer.launch(options);
 
   _page = await browser.newPage();
