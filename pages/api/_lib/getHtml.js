@@ -2,23 +2,14 @@ import puppeteer, { Page } from "puppeteer-core";
 import { v4 as uuidv4 } from "uuid";
 import { getOptions } from "./options";
 
-const isDev = process.env.AWS_REGION;
-
-
 // Generate unique id
 const imageId = () => uuidv4();
 
 let _page;
 
-let baseURL =
-process.env.NODE_ENV === "development"
-  ? "http://localhost:3000"
-  : "https://next-js-image-generator.vercel.app";
-
-
 async function getPage() {
   if (_page) return _page;
-  const options = await getOptions(isDev);
+  const options = await getOptions(true);
   const browser = await puppeteer.launch(options);
 
   _page = await browser.newPage();
@@ -27,17 +18,14 @@ async function getPage() {
 }
 
 export async function getScreenShoot(html, type) {
-
-
   const image = imageId();
-  const path = `${baseURL}/${image}.${type}`;
-  
+  const path = `${image}.${type}`;
   const page = await getPage();
 
   await page.setViewport({ width: 1680, height: 1050 });
   await page.setContent(html);
   await page.evaluateHandle("document.fonts.ready");
-  await page.screenshot({ path: `./public/${path}` });
+  await page.screenshot({ path: `public/${path}` });
 
   return path;
 }
@@ -45,6 +33,7 @@ export async function getScreenShoot(html, type) {
 export async function getImages(query) {
   const page = await getPage();
 
+  console.log(query);
   await page.goto("https://worldvectorlogo.com/fr/", {
     waitUntil: "networkidle2"
   });

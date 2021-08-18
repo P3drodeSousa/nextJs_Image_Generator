@@ -5,8 +5,8 @@ import { Container } from "./styles";
 function Preview({ url, loading }) {
   const [show, setShow] = useState(false);
 
-  const imagePath = !url ? `imgs/base.png` : `https://next-js-image-generator.vercel.app/${url}`;
-
+  const imagePath = !url ? `imgs/base.png` : `${url}`;
+  console.log(url)
   const copy2CLipBoard = async () => {
     setShow(true);
     await navigator.clipboard.writeText(imagePath);
