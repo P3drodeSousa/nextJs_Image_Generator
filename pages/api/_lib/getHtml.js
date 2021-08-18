@@ -13,7 +13,7 @@ let _page;
 let baseURL =
 process.env.NODE_ENV === "development"
   ? "http://localhost:3000"
-  : "https://next-js-image-generator.vercel.app/";
+  : "https://next-js-image-generator.vercel.app";
 
 
 async function getPage() {
@@ -30,14 +30,14 @@ export async function getScreenShoot(html, type) {
 
 
   const image = imageId();
-  const path = `${baseURL}${image}.${type}`;
+  const path = `${baseURL}/${image}.${type}`;
   
   const page = await getPage();
 
   await page.setViewport({ width: 1680, height: 1050 });
   await page.setContent(html);
   await page.evaluateHandle("document.fonts.ready");
-  await page.screenshot({ path: `public/${path}` });
+  await page.screenshot({ path: `./public/${path}` });
 
   return path;
 }
