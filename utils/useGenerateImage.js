@@ -32,7 +32,7 @@ export default function useGenerateImage() {
             {
               values
             },
-            { cancelToken: new axios.CancelToken(c => (cancel = c)) } //Pass the cancel token to the current request
+            { cancelToken: new axios.CancelToken(c => (cancel = c)) }
           );
 
           setImage(res.data.url);
@@ -41,7 +41,6 @@ export default function useGenerateImage() {
 
         getData();
       } catch (error) {
-        console.log(error);
       }
 
       return () => cancel();

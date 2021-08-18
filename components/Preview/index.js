@@ -5,7 +5,7 @@ import { Container } from "./styles";
 function Preview({ url, loading }) {
   const [show, setShow] = useState(false);
 
-  const imagePath = !url ? `imgs/base.png` : `http://localhost:3000/${url}`;
+  const imagePath = !url ? `imgs/base.png` : `https://next-js-image-generator.vercel.app/${url}`;
 
   const copy2CLipBoard = async () => {
     setShow(true);
