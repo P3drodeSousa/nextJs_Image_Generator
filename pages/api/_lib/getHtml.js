@@ -25,9 +25,9 @@ export async function getScreenShoot(html, type) {
   await page.setViewport({ width: 1680, height: 1050 });
   await page.setContent(html);
   await page.evaluateHandle("document.fonts.ready");
-  await page.screenshot({ path: `public/${path}` });
+  const file = await page.screenshot({encoding: 'base64'});
 
-  return path;
+  return file;
 }
 
 export async function getImages(query) {

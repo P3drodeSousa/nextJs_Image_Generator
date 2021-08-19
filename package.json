@@ -8,7 +8,9 @@
     "start": "next start"
   },
   "dependencies": {
+    "@supabase/supabase-js": "^1.21.3",
     "axios": "^0.21.0",
+    "base64-arraybuffer": "^1.0.1",
     "chrome-aws-lambda": "^10.1.0",
     "marked": "^1.2.5",
     "next": "10.0.3",
