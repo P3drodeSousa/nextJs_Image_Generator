@@ -34,7 +34,7 @@ export default function useGenerateImage() {
             },
             { cancelToken: new axios.CancelToken(c => (cancel = c)) }
           );
-
+          console.log(res.data.url)
           setImage(res.data.url);
           setLoading(false);
         };
