@@ -18,11 +18,15 @@ export default async (req, res) => {
         contentType: `image/${values.fileType}`,
       });
 
-    const { signedURL } = await supabase.storage
+    const { signedURL, error } = await supabase.storage
       .from("og")
       .createSignedUrl(`screenhoots/${fileName}`, 120);
-    res.statusCode = 200;
-    return res.json({ url: signedURL });
+      
+      console.log('error', error)
+      res.status(200).json({
+        url: signedURL 
+      });
+
   } catch (error) {
     console.log("Error", error);
   }
