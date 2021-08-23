@@ -5,29 +5,22 @@ import { decode } from "base64-arraybuffer";
 
 export default async (req, res) => {
   const { values } = req.body;
+  const html = await getHtml(values);
+  const file = await getScreenShoot(html, values.fileType);
 
-  try {
-    const html = await getHtml(values);
-    const file = await getScreenShoot(html, values.fileType);
+  const fileName = "uploaded_on_" + Date.now() + "." + values.fileType;
 
-    const fileName = "uploaded_on_" + Date.now() + "." + values.fileType;
+  await supabase.storage
+    .from("og")
+    .upload(`screenhoots/${fileName}`, decode(file), {
+      contentType: `image/${values.fileType}`,
+    });
 
-    await supabase.storage
-      .from("og")
-      .upload(`screenhoots/${fileName}`, decode(file), {
-        contentType: `image/${values.fileType}`,
-      });
+  const { signedURL } = await supabase.storage
+    .from("og")
+    .createSignedUrl(`screenhoots/${fileName}`, 120);
 
-    const { signedURL, error } = await supabase.storage
-      .from("og")
-      .createSignedUrl(`screenhoots/${fileName}`, 120);
-      
-      console.log('error', error)
-      res.status(200).json({
-        url: signedURL 
-      });
-
-  } catch (error) {
-    console.log("Error", error);
-  }
+  console.log(typeof signedURL);
+  res.statusCode = 200;
+  return res.json({ url: signedURL });
 };
