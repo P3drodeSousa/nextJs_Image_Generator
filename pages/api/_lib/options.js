@@ -1,30 +1,26 @@
 import chrome from "chrome-aws-lambda";
 
-const chromeExecPaths = {
-  win32: "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe",
-  linux: "/usr/bin/google-chrome",
-  darwin: "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome"
-};
+const exePath =
+  process.platform === "win32"
+    ? "C:\\Program Files (x86)\\Google\\Chrome\\Application\\chrome.exe"
+    : process.platform === "linux"
+    ? "/usr/bin/google-chrome"
+    : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
-const exePath = chromeExecPaths[process.platform];
-
-export async function getOptions(isDev) {
+async function getOptions(isDev) {
   let options;
-
-
-  if (!isDev) {
+  if (isDev) {
     options = {
       args: [],
       executablePath: exePath,
-      headless: true
+      headless: true,
     };
   } else {
     options = {
       args: chrome.args,
       executablePath: await chrome.executablePath,
-      headless: chrome.headless
+      headless: chrome.headless,
     };
   }
-
   return options;
 }
