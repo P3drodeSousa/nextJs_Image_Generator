@@ -10,17 +10,17 @@ export default async (req, res) => {
 
   const fileName = "uploaded_on_" + Date.now() + "." + values.fileType;
 
-  await supabase.storage
-    .from("og")
-    .upload(`screenhoots/${fileName}`, decode(file), {
-      contentType: `image/${values.fileType}`,
-    });
+  try {
+    await supabase.storage
+      .from("og")
+      .upload(`screenhoots/${fileName}`, decode(file), {
+        contentType: `image/${values.fileType}`,
+      });
 
-  const { signedURL } = await supabase.storage
-    .from("og")
-    .createSignedUrl(`screenhoots/${fileName}`, 120);
-
-  console.log(typeof signedURL);
-  res.statusCode = 200;
-  return res.json({ url: signedURL });
+    const { signedURL } = await supabase.storage
+      .from("og")
+      .createSignedUrl(`screenhoots/${fileName}`, 120);
+  } catch (error) {
+    console.log(error);
+  }
 };
