@@ -25,7 +25,7 @@ export async function getScreenShoot(html, type) {
   await page.setViewport({ width: 1680, height: 1050 });
   await page.setContent(html);
   await page.evaluateHandle("document.fonts.ready");
-  const file = await page.screenshot({encoding: 'base64'});
+  const file = await page.screenshot({ encoding: "base64" });
 
   return file;
 }
@@ -35,7 +35,7 @@ export async function getImages(query) {
 
   console.log(query);
   await page.goto("https://worldvectorlogo.com/fr/", {
-    waitUntil: "networkidle2"
+    waitUntil: "networkidle2",
   });
 
   await page.waitForSelector("#search_field");
@@ -46,7 +46,7 @@ export async function getImages(query) {
   const images = await page.evaluate(() => {
     const img = document.querySelectorAll(".logos img");
     const src = [];
-    img.forEach(el => {
+    img.forEach((el) => {
       src.push(el.src);
     });
     return src;

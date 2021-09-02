@@ -7,7 +7,7 @@ const exePath =
     ? "/usr/bin/google-chrome"
     : "/Applications/Google Chrome.app/Contents/MacOS/Google Chrome";
 
-async function getOptions(isDev) {
+export async function getOptions(isDev) {
   let options;
   if (isDev) {
     options = {
