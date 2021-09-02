@@ -11,11 +11,16 @@ export default async (req, res) => {
   const fileName = "uploaded_on_" + Date.now() + "." + values.fileType;
 
   try {
-    await supabase.storage
+    const { data, error } = await supabase.storage
       .from("og")
       .upload(`screenhoots/${fileName}`, decode(file), {
         contentType: `image/${values.fileType}`,
       });
+
+      if (error) {
+        console.log(error)
+         throw error;
+      }
 
     const { signedURL } = await supabase.storage
       .from("og")
