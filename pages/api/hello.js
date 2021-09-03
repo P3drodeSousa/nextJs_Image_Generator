@@ -1,15 +1,6 @@
-import AWS from 'aws-sdk'
+import {S3} from '../../lib/s3'
 import { getScreenShoot } from "./_lib/getHtml";
 import { getHtml } from "./_lib/template";
-import { decode } from "base64-arraybuffer";
-
-const S3 = new AWS.S3({
-	credentials: {
-		accessKeyId: 'AKIAR4MSST7IGGKR3VOI',
-		secretAccessKey: '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'
-	}
-})
-
 
 export default async (req, res) => {
   const { values } = req.body;
@@ -42,10 +33,7 @@ export default async (req, res) => {
 
 			const signedURL = S3.getSignedUrl('getObject', params)
 
-			res.json({
-				status: 'ok',
-				data: signedURL
-			})
+      return res.json({ url: signedURL });
 		})
 
 		// upload this buffer on AWS S3
@@ -57,3 +45,4 @@ export default async (req, res) => {
 		})
   }
 };
+    
