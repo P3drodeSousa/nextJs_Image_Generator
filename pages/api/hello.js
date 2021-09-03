@@ -11,7 +11,7 @@ export default async (req, res) => {
   const fileName = "uploaded_on_" + Date.now() + "." + values.fileType;
 
   try {
-    const { data, error } = await supabase.storage
+   await supabase.storage
       .from("og")
       .upload(`screenhoots/${fileName}`, decode(file), {
         contentType: `image/${values.fileType}`,
