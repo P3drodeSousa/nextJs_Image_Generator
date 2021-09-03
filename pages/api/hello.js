@@ -30,6 +30,9 @@ export default async (req, res) => {
     return res.json({ url: signedURL });
     
   } catch (error) {
-    console.log(error);
+    res.json({
+			status: 'error',
+			data: error.message || 'Something went wrong'
+		})
   }
 };
