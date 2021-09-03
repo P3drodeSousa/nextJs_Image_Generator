@@ -9,7 +9,7 @@ const exePath =
 
 export async function getOptions(isDev) {
   let options;
-  if (isDev) {
+  if (!isDev) {
     options = {
       args: [],
       executablePath: exePath,
