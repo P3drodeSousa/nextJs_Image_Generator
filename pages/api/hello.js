@@ -16,6 +16,8 @@ export default async (req, res) => {
   const html = await getHtml(values);
   const file = await getScreenShoot(html, values.fileType);
 
+  const fileName = "uploaded_on_" + Date.now() + "." + values.fileType;
+  
   const params = {
     Bucket: 'next-image-generator',
     Key: fileName,
