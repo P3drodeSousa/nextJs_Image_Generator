@@ -1,9 +1,5 @@
 import puppeteer, { Page } from "puppeteer-core";
-import { v4 as uuidv4 } from "uuid";
 import { getOptions } from "./options";
-
-// Generate unique id
-const imageId = () => uuidv4();
 
 let _page;
 
@@ -18,16 +14,14 @@ async function getPage() {
 }
 
 export async function getScreenShoot(html, type) {
-  const image = imageId();
-  const path = `${image}.${type}`;
   const page = await getPage();
 
   await page.setViewport({ width: 1680, height: 1050 });
   await page.setContent(html);
   await page.evaluateHandle("document.fonts.ready");
-  const file = await page.screenshot({ encoding: "base64" });
+  const imageBuffer = await page.screenshot()
 
-  return file;
+  return imageBuffer;
 }
 
 export async function getImages(query) {

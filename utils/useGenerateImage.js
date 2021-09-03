@@ -11,7 +11,6 @@ export default function useGenerateImage() {
     images: []
   });
 
-  const [error, setError] = useState('');
   const [noOfRender, setNoOfRender] = useState(0);
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -42,12 +41,11 @@ export default function useGenerateImage() {
         getData();
       } catch (error) {
         console.log(error)
-        setError(error)
       }
 
       return () => cancel();
     },
     [values]
   );
-  return { values, setValues, image, loading, error };
+  return { values, setValues, image, loading };
 }

@@ -6,7 +6,7 @@ import useGenerateImage from "../utils/useGenerateImage";
 import Search from "../components/Search";
 
 export default function Home() {
-  const { values, setValues, image, loading, error } = useGenerateImage();
+  const { values, setValues, image, loading} = useGenerateImage();
 
   const handleChange = e => {
     const { name, value } = e.target;
@@ -25,8 +25,6 @@ export default function Home() {
         />
       </Head>
       <h1>Open Graph Image as a Service</h1>
-      <h1>{error}</h1>
-
       <Wrapper>
         <Form
           handleChange={handleChange}
