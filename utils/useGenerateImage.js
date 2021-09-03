@@ -11,6 +11,7 @@ export default function useGenerateImage() {
     images: []
   });
 
+  const [error, setError] = useState('');
   const [noOfRender, setNoOfRender] = useState(0);
   const [image, setImage] = useState("");
   const [loading, setLoading] = useState(false);
@@ -34,7 +35,6 @@ export default function useGenerateImage() {
             },
             { cancelToken: new axios.CancelToken(c => (cancel = c)) }
           );
-          console.log(res.data.url)
           setImage(res.data.url);
           setLoading(false);
         };
@@ -42,11 +42,12 @@ export default function useGenerateImage() {
         getData();
       } catch (error) {
         console.log(error)
+        setError(error)
       }
 
       return () => cancel();
     },
     [values]
   );
-  return { values, setValues, image, loading };
+  return { values, setValues, image, loading, error };
 }
