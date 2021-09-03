@@ -17,11 +17,6 @@ export default async (req, res) => {
         contentType: `image/${values.fileType}`,
       });
 
-      if (error) {
-        console.log(error)
-         throw error;
-      }
-
     const { signedURL } = await supabase.storage
       .from("og")
       .createSignedUrl(`screenhoots/${fileName}`, 120);

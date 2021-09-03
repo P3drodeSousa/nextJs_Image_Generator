@@ -41,6 +41,7 @@ export default function useGenerateImage() {
 
         getData();
       } catch (error) {
+        console.log(error)
       }
 
       return () => cancel();
