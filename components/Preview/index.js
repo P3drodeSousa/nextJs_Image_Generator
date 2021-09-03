@@ -1,18 +1,9 @@
-import { useState } from "react";
-import Notification from "./Notification";
+import { useRouter } from "next/router";
 import { Container } from "./styles";
 
 function Preview({ url, loading }) {
-  const [show, setShow] = useState(false);
-
-  const imagePath = !url ? `imgs/base.png` : `${url}`;
-  const copy2CLipBoard = async () => {
-    setShow(true);
-    await navigator.clipboard.writeText(imagePath);
-    setTimeout(() => {
-      setShow(false);
-    }, 4000);
-  };
+  const router = useRouter();
+  const imagePath = !url ? `${router.basePath}/imgs/base.png` : `${url}`;
 
   return (
     <Container>
@@ -20,21 +11,21 @@ function Preview({ url, loading }) {
         className="image-wrapper"
         style={{
           filter: loading ? "blur(10px)" : "none",
-          transition: loading ? "none" : "filter 0.2s ease-out"
+          transition: loading ? "none" : "filter 0.2s ease-out",
         }}
       >
-        <img
-          key={Date.now()}
-          src={imagePath}
-          onClick={copy2CLipBoard}
-          style={{
-            width: "100%",
-            height: "100%",
-            objectFit: "cover"
-          }}
-        />
+        <a href={imagePath} download>
+          <img
+            key={Date.now()}
+            src={imagePath}
+            style={{
+              width: "100%",
+              height: "100%",
+              objectFit: "cover",
+            }}
+          />
+        </a>
       </div>
-      <Notification show={show} />
     </Container>
   );
 }

@@ -27,7 +27,6 @@ export async function getScreenShoot(html, type) {
 export async function getImages(query) {
   const page = await getPage();
 
-  console.log(query);
   await page.goto("https://worldvectorlogo.com/fr/", {
     waitUntil: "networkidle2",
   });

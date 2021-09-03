@@ -13,7 +13,8 @@ export const Container = styled.div`
     border-radius: 5px;
     margin-bottom: 50px;
     transition: all 0.2s ease;
-    max-width: 100%;
+    min-width: 650px;
+    width: 100%;
 
     &:hover {
       box-shadow: 0 1px 16px rgba(0, 0, 0, 0.1);
