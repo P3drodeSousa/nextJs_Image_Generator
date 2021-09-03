@@ -1,6 +1,14 @@
-import {S3} from '../../lib/s3'
+import AWS from 'aws-sdk'
 import { getScreenShoot } from "./_lib/getHtml";
 import { getHtml } from "./_lib/template";
+import { decode } from "base64-arraybuffer";
+
+const S3 = new AWS.S3({
+	credentials: {
+		accessKeyId: 'AKIAR4MSST7IGGKR3VOI',
+		secretAccessKey: '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'
+	}
+})
 
 export default async (req, res) => {
   const { values } = req.body;
